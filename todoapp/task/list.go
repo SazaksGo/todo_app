@@ -60,17 +60,17 @@ func (l *List) ListNotCompletedTasks() map[string]Task {
 	}
 	return NKT
 }
-func (l *List) CompleteTask(title string) error {
+func (l *List) CompleteTask(title string) (Task, error) {
 	l.mtx.Lock()
 	defer l.mtx.Unlock()
 	task, ok := l.tasks[title]
 	if !ok {
-		return fmt.Errorf("task with title %s not found", title)
+		return Task{}, ErrTaskNotFound
 	}
 	task.Completed()
 
 	l.tasks[title] = task
-	return nil
+	return l.tasks[title], nil
 }
 
 func (l *List) UnCompleteTask(title string) error {
