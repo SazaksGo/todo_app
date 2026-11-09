@@ -3,7 +3,6 @@ package task
 import "time"
 
 type Task struct {
-	ID           int
 	Title        string
 	Description  string
 	Complete     bool
