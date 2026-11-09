@@ -29,3 +29,9 @@ func (t *Task) Completed() {
 	t.Complete = true
 	t.Completed_at = &CompleteTime
 }
+
+func (t *Task) UnComplete() {
+
+	t.Complete = false
+	t.Completed_at = nil
+}

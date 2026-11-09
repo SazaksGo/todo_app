@@ -2,12 +2,27 @@ package http
 
 import (
 	"encoding/json"
+	"errors"
 	"time"
 )
 
 type TaskDTO struct {
-	title       string
-	description string
+	Title       string
+	Description string
+}
+
+type CompleteTaskDTO struct {
+	Complete bool
+}
+
+func (t TaskDTO) ValidateForCreate() error {
+	if t.Title == "" {
+		return errors.New("Title is empty")
+	}
+	if t.Description == "" {
+		return errors.New("Description is empty")
+	}
+	return nil
 }
 
 type ErrorDTO struct {
@@ -20,4 +35,5 @@ func (e ErrorDTO) ToString() string {
 	if err != nil {
 		panic(err)
 	}
+	return string(b)
 }
